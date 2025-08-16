@@ -1,15 +1,12 @@
 'use client';
 
 import './globals.css';
-import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/providers/theme-provider';
 import { CartProvider } from '@/components/providers/cart-provider';
 import { Navigation } from '@/components/navigation/navigation';
 import { Toaster } from '@/components/ui/toaster';
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
-
-const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
@@ -34,7 +31,7 @@ export default function RootLayout({
           <meta name="description" content="MYKS Sports - Découvrez notre collection de vêtements de sport premium avec un design futuristique et moderne." />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
         </head>
-        <body className={inter.className}>
+        <body className="font-sans">
           <div className="min-h-screen bg-background">
             <div className="animate-pulse">
               <div className="h-16 bg-gray-200 dark:bg-gray-800"></div>
@@ -59,7 +56,7 @@ export default function RootLayout({
         <meta name="description" content="MYKS Sports - Découvrez notre collection de vêtements de sport premium avec un design futuristique et moderne." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className={inter.className}>
+      <body className="font-sans">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

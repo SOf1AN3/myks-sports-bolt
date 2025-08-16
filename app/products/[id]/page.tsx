@@ -30,8 +30,8 @@ export default function ProductPage() {
 
   if (!product) {
     return (
-      <div className="min-h-screen pt-16 flex items-center justify-center">
-        <div className="text-center">
+      <div className="min-h-screen pt-16 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center">
           <h1 className="text-2xl font-bold mb-4">Produit non trouvé</h1>
           <Button asChild>
             <Link href="/catalogue">Retour au catalogue</Link>
@@ -58,14 +58,14 @@ export default function ProductPage() {
         color: selectedColor,
       });
     }
-    
+
     openCart();
   };
 
   return (
     <div className="min-h-screen pt-16 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
+
         {/* Breadcrumb */}
         <motion.div
           variants={fadeInUp}
@@ -82,7 +82,7 @@ export default function ProductPage() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          
+
           {/* Images */}
           <motion.div
             variants={fadeInUp}
@@ -114,9 +114,9 @@ export default function ProductPage() {
                 {product.isNew && <Badge className="bg-green-500">Nouveau</Badge>}
                 {product.onSale && <Badge className="bg-red-500">Promo</Badge>}
               </div>
-              
+
               <h1 className="text-3xl md:text-4xl font-bold mb-4">{product.name}</h1>
-              
+
               <div className="flex items-center gap-4 mb-4">
                 {product.onSale && product.originalPrice ? (
                   <>
@@ -189,11 +189,11 @@ export default function ProductPage() {
                 >
                   <Minus className="h-4 w-4" />
                 </Button>
-                
+
                 <span className="text-lg font-semibold w-12 text-center">
                   {quantity}
                 </span>
-                
+
                 <Button
                   variant="outline"
                   size="sm"
@@ -214,11 +214,11 @@ export default function ProductPage() {
               >
                 Ajouter au panier
               </Button>
-              
+
               <Button variant="outline" size="lg" className="p-3">
                 <Heart className="h-5 w-5" />
               </Button>
-              
+
               <Button variant="outline" size="lg" className="p-3">
                 <Share2 className="h-5 w-5" />
               </Button>
@@ -238,10 +238,29 @@ export default function ProductPage() {
                 </div>
               ))}
             </div>
-          </div>
         </div>
+      </div>
 
-        {/* Description */}
+      {/* Description */}
+      <motion.div
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+        className="mb-16"
+      >
+        <Card>
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold mb-4">Description détaillée</h2>
+            <p className="text-muted-foreground leading-relaxed">
+              {product.detailedDescription}
+            </p>
+          </CardContent>
+        </Card>
+      </motion.div>
+
+      {/* Similar Products */}
+      {similarProducts.length > 0 && (
         <motion.div
           variants={fadeInUp}
           initial="initial"
@@ -249,34 +268,15 @@ export default function ProductPage() {
           viewport={{ once: true }}
           className="mb-16"
         >
-          <Card>
-            <CardContent className="p-8">
-              <h2 className="text-2xl font-bold mb-4">Description détaillée</h2>
-              <p className="text-muted-foreground leading-relaxed">
-                {product.detailedDescription}
-              </p>
-            </CardContent>
-          </Card>
+          <h2 className="text-2xl font-bold mb-8">Produits similaires</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {similarProducts.map((similarProduct) => (
+              <ProductCard key={similarProduct.id} product={similarProduct} />
+            ))}
+          </div>
         </motion.div>
-
-        {/* Similar Products */}
-        {similarProducts.length > 0 && (
-          <motion.div
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            className="mb-16"
-          >
-            <h2 className="text-2xl font-bold mb-8">Produits similaires</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {similarProducts.map((similarProduct) => (
-                <ProductCard key={similarProduct.id} product={similarProduct} />
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </div>
+      )}
     </div>
+    </div >
   );
 }
